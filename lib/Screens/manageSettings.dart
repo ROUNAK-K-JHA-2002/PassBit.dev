@@ -4,38 +4,26 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:passwordmanager/Services/User.dart';
-import 'package:passwordmanager/widgets/bottomButton.dart';
+import 'package:passwordmanager/Utils/Colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../Services/LocalAuth.dart';
+import '../Services/User.dart';
+import '../widgets/bottomButton.dart';
 
-class Setbiometrics extends StatefulWidget {
-  const Setbiometrics({super.key});
+class ManageSettings extends StatefulWidget {
+  const ManageSettings({super.key});
 
   @override
-  State<Setbiometrics> createState() => _SetbiometricsState();
+  State<ManageSettings> createState() => _ManageSettingsState();
 }
 
-class _SetbiometricsState extends State<Setbiometrics> {
-  bool isallowed = false;
-  @override
-  void initState() {
-    super.initState();
-    readSettings();
-  }
-
-  void readSettings() {
-    readBiometricSetting().then((value) {
-      setState(() {
-        isallowed = value;
-      });
-    });
-  }
-
+class _ManageSettingsState extends State<ManageSettings> {
+  bool isDarkModeAllowed = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isDarkModeAllowed ? bgDarkTheme : bgLightTheme,
       body: SafeArea(
           child: Column(
         children: [
@@ -46,11 +34,15 @@ class _SetbiometricsState extends State<Setbiometrics> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Change Biometrics Settings",
+                  "Manage General Settings",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.publicSans(
                       textStyle: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                          color: isDarkModeAllowed
+                              ? textDarkTheme
+                              : textLightTheme,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp)),
                 ),
               ],
             ),
@@ -62,32 +54,38 @@ class _SetbiometricsState extends State<Setbiometrics> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Use Biometrics to Open App",
+                "Use Dark Theme",
                 style: GoogleFonts.workSans(
                     textStyle: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                        color:
+                            isDarkModeAllowed ? textDarkTheme : textLightTheme,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp)),
+              ),
+              SizedBox(
+                width: 25.w,
               ),
               CupertinoSwitch(
-                  value: isallowed,
+                  value: isDarkModeAllowed,
                   onChanged: (bool value) {
-                    print(value);
                     setState(() {
-                      if (isallowed) {
-                        isallowed = false;
+                      if (isDarkModeAllowed) {
+                        isDarkModeAllowed = false;
                       } else {
-                        isallowed = true;
+                        isDarkModeAllowed = true;
                       }
                     });
                   })
             ],
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
-          Padding(
+          Container(
+            width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.symmetric(horizontal: 3.w),
             child: Text(
-              "After Allowing this setting, Fingerprint will be required each time you open the app.",
+              "Use the app in dark mode.This helps is less strain on your eyes.",
               style: GoogleFonts.quicksand(
                   textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -102,7 +100,7 @@ class _SetbiometricsState extends State<Setbiometrics> {
               debugPrint(isAuth.toString());
               if (isAuth) {
                 bool taskComplete =
-                    await saveBiometricSetting(isallowed.toString());
+                    await saveBiometricSetting(isDarkModeAllowed.toString());
                 if (taskComplete) {
                   Fluttertoast.showToast(
                       msg: "Settings Saved Successfully",
@@ -130,5 +128,6 @@ class _SetbiometricsState extends State<Setbiometrics> {
         ],
       )),
     );
+    ;
   }
 }

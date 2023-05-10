@@ -36,6 +36,8 @@ dependencies:
   firebase_auth: ^4.5.0
   google_sign_in: ^6.1.0
   google_nav_bar: ^5.0.6
+  fluttertoast: ^8.2.1
+  syncfusion_flutter_charts: ^21.2.4
   flutter:
     sdk: flutter
 

@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Screens/LoginScreen.dart';
+import 'package:passwordmanager/Screens/manageSettings.dart';
 import 'package:passwordmanager/Screens/setBiometrics.dart';
 import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:passwordmanager/Services/LocalAuth.dart';
@@ -23,6 +24,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     // print(user!.displayName);
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 253, 247),
       body: SafeArea(
           child: Column(
         children: [
@@ -81,12 +83,14 @@ class _ProfileState extends State<Profile> {
               child: Container(
             child: Column(children: [
               GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ManageSettings()));
+                  },
                   child: const TileWidget(
                       icon: Icons.settings, text: "Manage Settings")),
               GestureDetector(
                   onTap: () {
-                    // final isAuth = await LocalAuth().authenticate();
-                    // debugPrint(isAuth.toString());
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Setbiometrics()));
                   },
