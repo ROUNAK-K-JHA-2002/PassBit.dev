@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:passwordmanager/Screens/home.dart';
+import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:passwordmanager/Utils/Colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -80,7 +82,13 @@ class _LoginState extends State<Login> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  dynamic user = await FirebaseServices().SignInWithGoogle();
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomePage()));
+                  }
+                },
                 child: Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
