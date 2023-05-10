@@ -3,8 +3,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:passwordmanager/Screens/LoginScreen.dart';
+import 'package:passwordmanager/Screens/SearchPassword.dart';
 import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import 'AddPassword.dart';
+import 'Profile.dart';
+import 'dashboard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,26 +20,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    Dashboard(),
+    AddPassword(),
+    SearchPasswords(),
+    Profile()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("User Logged in"),
-            MaterialButton(
-              onPressed: () {
-                FirebaseServices().signOut();
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Login()));
-              },
-              child: const Text("Sign Out"),
-            )
-          ],
-        )),
-      ),
+      body: _widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
