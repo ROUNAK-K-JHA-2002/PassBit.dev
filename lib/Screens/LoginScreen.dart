@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Screens/home.dart';
+import 'package:passwordmanager/Screens/setMasterPassword.dart';
 import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:passwordmanager/Utils/Colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -86,7 +87,9 @@ class _LoginState extends State<Login> {
                   dynamic user = await FirebaseServices().SignInWithGoogle();
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const HomePage()));
+                        builder: (context) => const MasterPassword(
+                              isrouteFromLogin: true,
+                            )));
                   }
                 },
                 child: Container(

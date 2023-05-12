@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Screens/LoginScreen.dart';
 import 'package:passwordmanager/Screens/manageSettings.dart';
 import 'package:passwordmanager/Screens/setBiometrics.dart';
+import 'package:passwordmanager/Screens/setMasterPassword.dart';
 import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:passwordmanager/Services/LocalAuth.dart';
 import 'package:passwordmanager/widgets/tileWidget.dart';
@@ -92,12 +94,21 @@ class _ProfileState extends State<Profile> {
               GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Setbiometrics()));
+                        builder: (context) => const Setbiometrics(
+                              isloginRoute: false,
+                            )));
                   },
                   child: const TileWidget(
                       icon: Icons.fingerprint, text: "Set Biometrics")),
               GestureDetector(
-                  child: const TileWidget(icon: Icons.lock, text: "Password")),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MasterPassword(
+                              isrouteFromLogin: false,
+                            )));
+                  },
+                  child: const TileWidget(
+                      icon: Icons.lock, text: "Master Password")),
               GestureDetector(
                   child: const TileWidget(
                       icon: Icons.security, text: "Privacy Terms")),
@@ -108,10 +119,9 @@ class _ProfileState extends State<Profile> {
                   onTap: () {
                     showDialog<void>(
                       context: context,
-                      barrierDismissible: false, // user must tap button!
+                      barrierDismissible: false,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          // <-- SEE HERE
                           title: const Text('Log out'),
                           content: SingleChildScrollView(
                             child: ListBody(
@@ -129,8 +139,9 @@ class _ProfileState extends State<Profile> {
                             ),
                             TextButton(
                               child: const Text('Yes'),
-                              onPressed: () {
+                              onPressed: () async {
                                 FirebaseServices().signOut();
+                                await const FlutterSecureStorage().deleteAll();
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) => const Login()));

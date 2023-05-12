@@ -26,37 +26,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _auth = FirebaseAuth.instance;
 
-  Widget route = const Login();
-  bool isallowed = false;
   @override
   void initState() {
     super.initState();
-    // handleInitialNavigation();
   }
 
-  // Future<void> handleInitialNavigation() async {
-  //   final isAuth = await LocalAuth().authenticate();
-  //   readBiometricSetting().then((value) {
-  //     setState(() {
-  //       isallowed = value;
-  //     });
-  //   });
-  //   if (_auth.currentUser == null) {
-  //     setState(() {
-  //       route = const Login();
-  //     });
-  //   } else if (isallowed) {
-  //     setState(() {
-  //       route = const HomePage();
-  //     });
-  //   } else if (isAuth) {
-  //     route = const HomePage();
-  //   } else {
-  //     SystemNavigator.pop();
-  //   }
-  // }
-
-  //calling Firebase Auth
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, screenType) {

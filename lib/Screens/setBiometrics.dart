@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:passwordmanager/Screens/home.dart';
 import 'package:passwordmanager/Services/User.dart';
 import 'package:passwordmanager/widgets/bottomButton.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -11,7 +12,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../Services/LocalAuth.dart';
 
 class Setbiometrics extends StatefulWidget {
-  const Setbiometrics({super.key});
+  final bool isloginRoute;
+  const Setbiometrics({super.key, required this.isloginRoute});
 
   @override
   State<Setbiometrics> createState() => _SetbiometricsState();
@@ -25,11 +27,10 @@ class _SetbiometricsState extends State<Setbiometrics> {
     readSettings();
   }
 
-  void readSettings() {
-    readBiometricSetting().then((value) {
-      setState(() {
-        isallowed = value;
-      });
+  void readSettings() async {
+    dynamic result = await readBiometricSetting();
+    setState(() {
+      isallowed = result;
     });
   }
 
@@ -112,7 +113,12 @@ class _SetbiometricsState extends State<Setbiometrics> {
                       backgroundColor: Colors.green,
                       textColor: Colors.white,
                       fontSize: 16.sp);
-                  Navigator.of(context).pop();
+                  if (widget.isloginRoute) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePage()));
+                  } else {
+                    Navigator.of(context).pop();
+                  }
                 } else {
                   Fluttertoast.showToast(
                       msg: "Error! Please try again",
