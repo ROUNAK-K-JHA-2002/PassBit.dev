@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:passwordmanager/Services/User.dart';
 import 'package:passwordmanager/widgets/homepageTile.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -21,6 +21,21 @@ final List<ChartData> chartData = [
 ];
 
 class _DashboardState extends State<Dashboard> {
+  String? userName;
+  @override
+  initState() {
+    super.initState();
+    checkUserName();
+  }
+
+  void checkUserName() async {
+    dynamic result = await getUserName();
+
+    setState(() {
+      userName = result;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "Hello,\n${FirebaseAuth.instance.currentUser!.displayName}",
+                    "Hello,\n $userName",
                     style: GoogleFonts.nunito(
                         textStyle: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18.sp)),
@@ -80,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                                   fontSize: 22.sp)),
                         ),
                         Text(
-                          " ${FirebaseAuth.instance.currentUser!.email}",
+                          "$userName",
                           style: GoogleFonts.robotoSlab(
                               textStyle: TextStyle(
                                   fontWeight: FontWeight.w400,

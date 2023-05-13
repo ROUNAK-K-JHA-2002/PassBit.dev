@@ -26,6 +26,7 @@ class _MasterPasswordState extends State<MasterPassword> {
     getMasterpassword();
   }
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController masterPasswordController =
       TextEditingController();
   final TextEditingController reTypemasterPasswordController =
@@ -161,6 +162,50 @@ class _MasterPasswordState extends State<MasterPassword> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
+                        "Enter Your Name",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.publicSans(
+                            textStyle: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp)),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                  margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.blue.withOpacity(0.2)),
+                  child: TextField(
+                    onChanged: (value) => _checkPassword(value),
+                    obscureText: false,
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      fillColor: Colors.black,
+                      hoverColor: Colors.black,
+                      icon: const Icon(
+                        Icons.person_2_rounded,
+                        color: Colors.blueAccent,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      hintText: 'Enter Your Name',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 5.h,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
                         "Enter Master Password",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.publicSans(
@@ -276,7 +321,7 @@ class _MasterPasswordState extends State<MasterPassword> {
                 ),
                 BottomButton(
                     text: "Save Data",
-                    onTap: () {
+                    onTap: () async {
                       if (masterPasswordController.text !=
                           reTypemasterPasswordController.text) {
                         Fluttertoast.showToast(
@@ -296,13 +341,28 @@ class _MasterPasswordState extends State<MasterPassword> {
                             backgroundColor: Colors.red,
                             textColor: Colors.white,
                             fontSize: 16.sp);
+                      } else if (nameController.text.isEmpty ||
+                          masterPasswordController.text.isEmpty ||
+                          reTypemasterPasswordController.text.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: "Error! Enter All Data",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.TOP,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.sp);
                       } else {
-                        setState(() async {
-                          isMasterPasswordSaved = await saveMasterPassword(
-                              masterPasswordController.text);
-                          if (isMasterPasswordSaved) {
+                        final isMPSaved = await saveMasterPassword(
+                            masterPasswordController.text);
+                        final isUserNamedSaved =
+                            await saveUserName(nameController.text);
+                        print("ssss" + isUserNamedSaved.toString());
+                        setState(() {
+                          isMasterPasswordSaved = isMPSaved;
+                          if (isMasterPasswordSaved && isUserNamedSaved) {
                             Fluttertoast.showToast(
-                                msg: "Password Saved Successfully",
+                                msg: "Details Saved Successfully",
                                 toastLength: Toast.LENGTH_LONG,
                                 gravity: ToastGravity.TOP,
                                 timeInSecForIosWeb: 1,

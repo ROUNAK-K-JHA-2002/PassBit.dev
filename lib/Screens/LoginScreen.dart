@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:passwordmanager/Screens/home.dart';
 import 'package:passwordmanager/Screens/setMasterPassword.dart';
-import 'package:passwordmanager/Services/FirebaseServices.dart';
-import 'package:passwordmanager/Utils/Colors.dart';
+import 'package:passwordmanager/Services/User.dart';
+import 'package:passwordmanager/widgets/bottomButton.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Login extends StatefulWidget {
@@ -26,8 +24,9 @@ class _LoginState extends State<Login> {
             Color.fromARGB(255, 181, 5, 245)
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
-        child: Column(children: [
-          const Expanded(child: SizedBox()),
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Expanded(child: SizedBox()),
           Image(
             image: const AssetImage(
               'assets/lockpasscode.jpg',
@@ -45,13 +44,9 @@ class _LoginState extends State<Login> {
           ),
           Expanded(child: SizedBox()),
           Container(
-            height: 40.h,
+            height: 35.h,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 235, 202, 213),
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 246, 173, 197),
-                Color.fromARGB(255, 235, 218, 202)
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
               boxShadow: [
                 BoxShadow(
@@ -82,39 +77,17 @@ class _LoginState extends State<Login> {
                           fontSize: 17.sp, color: Colors.grey.shade700)),
                 ),
               ),
-              GestureDetector(
-                onTap: () async {
-                  dynamic user = await FirebaseServices().SignInWithGoogle();
-                  if (user != null) {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const MasterPassword(
-                              isrouteFromLogin: true,
-                            )));
-                  }
-                },
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
-                  margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 15.w),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image(
-                          image: const AssetImage(
-                            'assets/google.png',
-                          ),
-                          height: 3.5.h,
-                        ),
-                        Text(
-                          "Sign In with Google",
-                          style: TextStyle(fontSize: 17.sp),
-                        )
-                      ]),
-                ),
-              )
+              BottomButton(
+                  text: "Get Started",
+                  onTap: () async {
+                    final bool result = await saveFirstTimeUser("true");
+
+                    if (result) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) =>
+                              const MasterPassword(isrouteFromLogin: true)));
+                    }
+                  })
             ]),
           )
         ]),

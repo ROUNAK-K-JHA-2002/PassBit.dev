@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:passwordmanager/Screens/LoginScreen.dart';
-import 'package:passwordmanager/Screens/SplashScreen.dart';
 import 'package:passwordmanager/Screens/home.dart';
+
 import 'package:passwordmanager/Services/LocalAuth.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -12,7 +10,7 @@ import 'Services/User.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -24,11 +22,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _auth = FirebaseAuth.instance;
+  bool isFirstUser = false;
 
   @override
   void initState() {
     super.initState();
+    checkFirstUser();
+  }
+
+  void checkFirstUser() async {
+    final bool result = await isFirstTimeUser();
+
+    setState(() {
+      isFirstUser = result;
+    });
   }
 
   @override
@@ -40,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: _auth.currentUser == null ? Login() : HomePage(),
+        home: !isFirstUser ? const Login() : const HomePage(),
       );
     });
   }

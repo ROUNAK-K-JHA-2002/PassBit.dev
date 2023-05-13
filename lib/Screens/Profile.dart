@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -8,7 +7,6 @@ import 'package:passwordmanager/Screens/LoginScreen.dart';
 import 'package:passwordmanager/Screens/manageSettings.dart';
 import 'package:passwordmanager/Screens/setBiometrics.dart';
 import 'package:passwordmanager/Screens/setMasterPassword.dart';
-import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:passwordmanager/Services/LocalAuth.dart';
 import 'package:passwordmanager/widgets/tileWidget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -21,7 +19,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     // print(user!.displayName);
@@ -46,12 +43,12 @@ class _ProfileState extends State<Profile> {
             margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
             padding: EdgeInsets.symmetric(horizontal: 2.w),
             child: Row(children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image(
-                    image: NetworkImage("${user!.photoURL}"),
-                    fit: BoxFit.cover,
-                  )),
+              // ClipRRect(
+              //     borderRadius: BorderRadius.circular(50),
+              //     child: Image(
+              //       image: NetworkImage("Rounak"),
+              //       fit: BoxFit.cover,
+              //     )),
               const SizedBox(
                 width: 10,
               ),
@@ -60,17 +57,17 @@ class _ProfileState extends State<Profile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "${user!.displayName}",
-                    style: GoogleFonts.comfortaa(
-                        textStyle: TextStyle(
-                            fontSize: 18.sp, fontWeight: FontWeight.w700)),
-                  ),
+                  // Text(
+                  //   "$userName",
+                  //   style: GoogleFonts.comfortaa(
+                  //       textStyle: TextStyle(
+                  //           fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "${user!.email}",
+                    "hhhhhhh",
                     style: GoogleFonts.comfortaa(
                         textStyle: TextStyle(
                             fontSize: 15.sp,
@@ -140,7 +137,6 @@ class _ProfileState extends State<Profile> {
                             TextButton(
                               child: const Text('Yes'),
                               onPressed: () async {
-                                FirebaseServices().signOut();
                                 await const FlutterSecureStorage().deleteAll();
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(

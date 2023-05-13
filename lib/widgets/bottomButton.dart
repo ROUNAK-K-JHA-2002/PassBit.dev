@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BottomButton extends StatefulWidget {
-  final String text;
+  final dynamic text;
   final dynamic onTap;
   const BottomButton({super.key, required this.text, required this.onTap});
 

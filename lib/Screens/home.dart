@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:passwordmanager/Screens/LoginScreen.dart';
 import 'package:passwordmanager/Screens/SearchPassword.dart';
-import 'package:passwordmanager/Services/FirebaseServices.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../Services/LocalAuth.dart';
