@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Services/User.dart';
-import 'package:passwordmanager/widgets/homepageTile.dart';
+import 'package:passwordmanager/widgets/homepage_tile.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -13,12 +9,6 @@ class Dashboard extends StatefulWidget {
   @override
   State<Dashboard> createState() => _DashboardState();
 }
-
-final List<ChartData> chartData = [
-  ChartData('Calories', 25, Colors.blue),
-  ChartData('Heart Rate', 38, Colors.green),
-  ChartData('Steps', 34, Colors.red),
-];
 
 class _DashboardState extends State<Dashboard> {
   String? userName;
@@ -39,20 +29,19 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SafeArea(
           child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 10.h,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     "Hello,\n $userName",
-                    style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                   ),
                   const SizedBox(
                     width: 10,
@@ -64,42 +53,21 @@ class _DashboardState extends State<Dashboard> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Column(children: [
-                Container(
-                    height: 25.h,
-                    child: SfCircularChart(
-                        margin: EdgeInsets.zero,
-                        series: <CircularSeries>[
-                          RadialBarSeries<ChartData, String>(
-                              useSeriesColor: true,
-                              trackOpacity: 0.2,
-                              radius: '100%',
-                              gap: '5%',
-                              dataSource: chartData,
-                              xValueMapper: (ChartData data, _) => data.x,
-                              yValueMapper: (ChartData data, _) => data.y,
-                              pointColorMapper: (ChartData data, _) =>
-                                  data.color,
-                              cornerStyle: CornerStyle.bothCurve)
-                        ])),
                 const Expanded(child: SizedBox()),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Monitoring Account",
-                          style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 22.sp)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 22.sp),
                         ),
                         Text(
                           "$userName",
-                          style: GoogleFonts.robotoSlab(
-                              textStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16.sp)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 16.sp),
                         ),
                         const SizedBox(
                           height: 10,

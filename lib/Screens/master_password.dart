@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:passwordmanager/Screens/home.dart';
-import 'package:passwordmanager/Screens/setBiometrics.dart';
+import 'package:passwordmanager/Screens/biometrics.dart';
 import 'package:passwordmanager/Services/User.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../Services/LocalAuth.dart';
-import '../widgets/bottomButton.dart';
+import '../widgets/bottom_button.dart';
 
 class MasterPassword extends StatefulWidget {
   final bool isrouteFromLogin;
@@ -99,7 +94,7 @@ class _MasterPasswordState extends State<MasterPassword> {
       body: SafeArea(
           child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 5.h,
             width: MediaQuery.of(context).size.width,
             child: Column(
@@ -108,11 +103,10 @@ class _MasterPasswordState extends State<MasterPassword> {
                 Text(
                   "Add password",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.publicSans(
-                      textStyle: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp)),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp),
                 ),
               ],
             ),
@@ -120,16 +114,15 @@ class _MasterPasswordState extends State<MasterPassword> {
           Divider(
             color: Colors.black.withOpacity(0.5),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Text(
               " \tNote :",
               textAlign: TextAlign.start,
-              style: GoogleFonts.workSans(
-                  textStyle: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp)),
+              style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp),
             ),
           ),
           const SizedBox(
@@ -140,11 +133,10 @@ class _MasterPasswordState extends State<MasterPassword> {
             padding: EdgeInsets.symmetric(horizontal: 3.w),
             child: Text(
               "1. Master Password is the key Password to the App.\n2.Master Password cannot be uploaded or backed Up for security reasons, it will be stored in local storage.\n3. If you Forget the Master Password, everything will be lost.",
-              style: GoogleFonts.quicksand(
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                      color: Colors.grey.shade600)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: Colors.grey.shade600),
             ),
           ),
           Divider(
@@ -155,7 +147,7 @@ class _MasterPasswordState extends State<MasterPassword> {
             child: Expanded(
                 child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: 5.h,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -164,11 +156,10 @@ class _MasterPasswordState extends State<MasterPassword> {
                       Text(
                         "Enter Your Name",
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.publicSans(
-                            textStyle: TextStyle(
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.sp)),
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp),
                       ),
                     ],
                   ),
@@ -208,11 +199,10 @@ class _MasterPasswordState extends State<MasterPassword> {
                       Text(
                         "Enter Master Password",
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.publicSans(
-                            textStyle: TextStyle(
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.sp)),
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp),
                       ),
                     ],
                   ),
@@ -310,11 +300,10 @@ class _MasterPasswordState extends State<MasterPassword> {
                 // The message about the strength of the entered password
                 Text(
                   _displayText,
-                  style: GoogleFonts.quicksand(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.sp,
-                          color: Colors.grey.shade600)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.sp,
+                      color: Colors.grey.shade600),
                 ),
                 const Expanded(
                   child: SizedBox(),
@@ -399,16 +388,15 @@ class _MasterPasswordState extends State<MasterPassword> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
                           "\tYour Master password is sucessfully set!",
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.workSans(
-                              textStyle: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.sp)),
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.sp),
                         ),
                       ),
                       Container(
@@ -429,10 +417,9 @@ class _MasterPasswordState extends State<MasterPassword> {
                                   Text(
                                     "\tYour Master password is : ",
                                     textAlign: TextAlign.start,
-                                    style: GoogleFonts.workSans(
-                                        textStyle: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17.sp)),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.sp),
                                   ),
                                   GestureDetector(
                                       onTap: () async {
@@ -461,10 +448,9 @@ class _MasterPasswordState extends State<MasterPassword> {
                                     ? masterPassword.toString()
                                     : "***********",
                                 textAlign: TextAlign.start,
-                                style: GoogleFonts.workSans(
-                                    textStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.sp)),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.sp),
                               ),
                             ],
                           )),

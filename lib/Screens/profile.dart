@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:passwordmanager/Screens/LoginScreen.dart';
-import 'package:passwordmanager/Screens/manageSettings.dart';
-import 'package:passwordmanager/Screens/setBiometrics.dart';
-import 'package:passwordmanager/Screens/setMasterPassword.dart';
-import 'package:passwordmanager/Services/LocalAuth.dart';
-import 'package:passwordmanager/widgets/tileWidget.dart';
+import 'package:passwordmanager/Screens/login.dart';
+import 'package:passwordmanager/Screens/manage_settings.dart';
+import 'package:passwordmanager/Screens/biometrics.dart';
+import 'package:passwordmanager/Screens/master_password.dart';
+import 'package:passwordmanager/widgets/tile_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Profile extends StatefulWidget {
@@ -68,11 +64,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   Text(
                     "hhhhhhh",
-                    style: GoogleFonts.comfortaa(
-                        textStyle: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.grey.shade600)),
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.grey.shade600),
                   )
                 ],
               ))

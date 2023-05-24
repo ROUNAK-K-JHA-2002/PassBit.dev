@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Utils/Colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../Services/LocalAuth.dart';
 import '../Services/User.dart';
-import '../widgets/bottomButton.dart';
+import '../widgets/bottom_button.dart';
 
 class ManageSettings extends StatefulWidget {
   const ManageSettings({super.key});
@@ -27,7 +23,7 @@ class _ManageSettingsState extends State<ManageSettings> {
       body: SafeArea(
           child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 5.h,
             width: MediaQuery.of(context).size.width,
             child: Column(
@@ -36,13 +32,10 @@ class _ManageSettingsState extends State<ManageSettings> {
                 Text(
                   "Manage General Settings",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.publicSans(
-                      textStyle: TextStyle(
-                          color: isDarkModeAllowed
-                              ? textDarkTheme
-                              : textLightTheme,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp)),
+                  style: TextStyle(
+                      color: isDarkModeAllowed ? textDarkTheme : textLightTheme,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp),
                 ),
               ],
             ),
@@ -55,12 +48,10 @@ class _ManageSettingsState extends State<ManageSettings> {
             children: [
               Text(
                 "Use Dark Theme",
-                style: GoogleFonts.workSans(
-                    textStyle: TextStyle(
-                        color:
-                            isDarkModeAllowed ? textDarkTheme : textLightTheme,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp)),
+                style: TextStyle(
+                    color: isDarkModeAllowed ? textDarkTheme : textLightTheme,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp),
               ),
               SizedBox(
                 width: 25.w,
@@ -78,7 +69,7 @@ class _ManageSettingsState extends State<ManageSettings> {
                   })
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -86,14 +77,13 @@ class _ManageSettingsState extends State<ManageSettings> {
             padding: EdgeInsets.symmetric(horizontal: 3.w),
             child: Text(
               "Use the app in dark mode.This helps is less strain on your eyes.",
-              style: GoogleFonts.quicksand(
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                      color: Colors.grey.shade600)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: Colors.grey.shade600),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           BottomButton(
             onTap: () async {
               final isAuth = await LocalAuth().authenticate();

@@ -7,8 +7,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../Services/LocalAuth.dart';
 import '../Services/User.dart';
-import 'AddPassword.dart';
-import 'Profile.dart';
+import 'password_screen.dart';
+import 'profile.dart';
 import 'dashboard.dart';
 
 class HomePage extends StatefulWidget {

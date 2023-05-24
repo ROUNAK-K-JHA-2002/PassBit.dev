@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:passwordmanager/Screens/LoginScreen.dart';
+import 'package:passwordmanager/Screens/login.dart';
 import 'package:passwordmanager/Screens/home.dart';
 
 import 'package:passwordmanager/Services/LocalAuth.dart';

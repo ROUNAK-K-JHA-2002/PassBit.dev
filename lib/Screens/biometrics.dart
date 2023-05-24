@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:passwordmanager/Screens/home.dart';
 import 'package:passwordmanager/Services/User.dart';
-import 'package:passwordmanager/widgets/bottomButton.dart';
+import 'package:passwordmanager/widgets/bottom_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../Services/LocalAuth.dart';
 
 class Setbiometrics extends StatefulWidget {
@@ -49,9 +45,8 @@ class _SetbiometricsState extends State<Setbiometrics> {
                 Text(
                   "Change Biometrics Settings",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.publicSans(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                 ),
               ],
             ),
@@ -64,9 +59,7 @@ class _SetbiometricsState extends State<Setbiometrics> {
             children: [
               Text(
                 "Use Biometrics to Open App",
-                style: GoogleFonts.workSans(
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
               CupertinoSwitch(
                   value: isallowed,
@@ -89,11 +82,10 @@ class _SetbiometricsState extends State<Setbiometrics> {
             padding: EdgeInsets.symmetric(horizontal: 3.w),
             child: Text(
               "After Allowing this setting, Fingerprint will be required each time you open the app.",
-              style: GoogleFonts.quicksand(
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
-                      color: Colors.grey.shade600)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: Colors.grey.shade600),
             ),
           ),
           Expanded(child: SizedBox()),

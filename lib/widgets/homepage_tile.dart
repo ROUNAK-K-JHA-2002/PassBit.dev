@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomePageTile extends StatefulWidget {
@@ -30,17 +29,14 @@ class _HomePageTileState extends State<HomePageTile> {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(
           widget.number,
-          style: GoogleFonts.nunito(
-              textStyle:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         Text(
           widget.text,
-          style: GoogleFonts.nunito(
-              textStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
-                  color: Colors.grey.shade700)),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.sp,
+              color: Colors.grey.shade700),
         )
       ]),
     );
