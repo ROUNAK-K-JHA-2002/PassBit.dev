@@ -25,46 +25,51 @@ class _HomePageTileState extends State<HomePageTile> {
           CircularProgressIndicator(value: downloadProgress.progress),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-      padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 5.w),
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+        padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 4.w),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade100.withOpacity(0.2),
-                offset: const Offset(5, 5),
-                blurRadius: 15,
-                spreadRadius: 1)
-          ]),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundImage: CachedNetworkImageProvider(widget.imageUrl),
-          ),
-          SizedBox(
-            width: 4.w,
-          ),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              widget.text,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+          color: Colors.blue.withOpacity(0.2),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(widget.imageUrl),
             ),
-            Text(
-              widget.userName,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
-                  color: Colors.grey.shade700),
-            )
-          ]),
-          const Expanded(child: SizedBox()),
-          const Icon(
-            Icons.copy,
-          ),
-        ],
+            SizedBox(
+              width: 4.w,
+            ),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                widget.text,
+                style: TextStyle(
+                    fontFamily: 'Poppins-Regular',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                    color: Colors.white),
+              ),
+              Text(
+                widget.userName,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.sp,
+                    color: Colors.grey.shade500),
+              )
+            ]),
+            const Expanded(child: SizedBox()),
+            GestureDetector(
+                onTap: () {},
+                child: const Icon(Icons.copy, color: Colors.white)),
+            //  SizedBox(
+            //   width: 4.w,
+            // ),
+            //           const Icon(Icons.dots, color: Colors.white),
+          ],
+        ),
       ),
     );
   }

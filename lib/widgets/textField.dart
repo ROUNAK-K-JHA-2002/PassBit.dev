@@ -26,31 +26,29 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 80.w,
-      height: 6.h,
       child: TextFormField(
         onTap: widget.onTap,
         controller: widget.controller,
         keyboardType: widget.textInputType ?? TextInputType.text,
         maxLines: 1,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(
             fontSize: 17.sp, fontFamily: 'Montserrat', letterSpacing: 2),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(0),
+          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 2.w),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.grey.shade200),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            // borderSide: BorderSide(color: widget.borderColor),
+            borderSide: BorderSide(color: Colors.grey.shade200),
           ),
           filled: true,
-          hintText: widget.hintText,
+          hintText: "  ${widget.hintText}",
           hintStyle: TextStyle(
             fontSize: 16.sp,
             fontFamily: 'Montserrat',
-            // color: widget.textColor,
           ),
           fillColor: Colors.grey.shade200,
         ),

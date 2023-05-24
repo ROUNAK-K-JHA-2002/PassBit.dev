@@ -15,12 +15,11 @@ class _TileWidgetState extends State<TileWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 6.h,
       margin: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 5.w),
-      padding: EdgeInsets.symmetric(horizontal: 2.w),
+      padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.5.h),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.1),
+        color: Colors.blue.withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -34,10 +33,16 @@ class _TileWidgetState extends State<TileWidget> {
         ),
         Text(
           widget.text,
-          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold),
         ),
         const Expanded(child: SizedBox()),
-        const Icon(Icons.arrow_forward_ios_rounded)
+        const Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: Colors.white,
+        )
       ]),
     );
   }
