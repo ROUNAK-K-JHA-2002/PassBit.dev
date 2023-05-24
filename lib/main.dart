@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:passwordmanager/Screens/dashboard.dart';
 import 'package:passwordmanager/Screens/login.dart';
 import 'package:passwordmanager/Screens/home.dart';
+import 'package:passwordmanager/helpers.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'Services/User.dart';
 
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // precacheImage(AssetImage(bgImage), context);
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Dashboard(),
+        home: const HomePage(),
       );
     });
   }

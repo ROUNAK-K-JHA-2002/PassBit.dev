@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:passwordmanager/Services/User.dart';
-import 'package:passwordmanager/widgets/homepage_tile.dart';
+import 'package:passwordmanager/helpers.dart';
+import 'package:passwordmanager/widgets/textField.dart';
+
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../widgets/homepage_tile.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -11,133 +15,286 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  String? userName;
+  final searchController = TextEditingController();
+
+  /// Did Change Dependencies
   @override
-  initState() {
-    super.initState();
-    checkUserName();
-  }
-
-  void checkUserName() async {
-    dynamic result = await getUserName();
-
-    setState(() {
-      userName = result;
-    });
+  void didChangeDependencies() {
+    precacheImage(bgImage, context);
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: SafeArea(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 10.h,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "Hello,\n $userName",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Icon(Icons.notifications_active_rounded)
-                ]),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              child: Column(children: [
-                const Expanded(child: SizedBox()),
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: true,
+      body: SizedBox(
+          height: 100.h,
+          width: 100.w,
+          child: SafeArea(
+            child: Column(
+              children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Monitoring Account",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 22.sp),
-                        ),
-                        Text(
-                          "$userName",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 16.sp),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ]),
+                  height: 10.h,
+                  child: Row(children: [
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      "Hello,\n${FirebaseAuth.instance.currentUser!.displayName}",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          height: 1,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18.sp),
+                    ),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    const Icon(
+                      Icons.notifications_active_rounded,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "${FirebaseAuth.instance.currentUser!.photoURL}"),
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                  ]),
                 ),
-                const SizedBox(
-                  height: 20,
-                )
-              ]),
-            ),
-          ),
-          Container(
-            height: 30.h,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 235, 202, 213),
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 255, 233, 182),
-                Color.fromARGB(255, 252, 215, 246)
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 5.0,
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 1.w),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 2.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(children: [
+                    TextFieldContainer(
+                        controller: searchController, hintText: "Search ..."),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.5.h, horizontal: 1.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blueAccent,
+                        ),
+                        child: Icon(
+                          Icons.manage_search,
+                          size: 25.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ]),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 3.h),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7.w, horizontal: 5.w),
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.blue.shade200.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  offset: const Offset(3, 2),
+                                  blurRadius: 20)
+                            ],
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue.shade700,
+                                Colors.blue.shade200
+                              ],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                            ),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(children: [
+                          Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.key_off_rounded,
+                              )),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          Text(
+                            "Passwords",
+                            style: TextStyle(
+                                fontFamily: 'Comfortaa-Regular',
+                                height: 1,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15.sp),
+                          ),
+                        ]),
+                      )),
+                      Expanded(
+                          child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7.w, horizontal: 5.w),
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            boxShadow: [
+                              BoxShadow(
+                                  color:
+                                      Colors.purple.shade200.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  offset: const Offset(3, 2),
+                                  blurRadius: 20)
+                            ],
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.purple.shade800,
+                                Colors.purpleAccent.shade100
+                              ],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                            ),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(children: [
+                          Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.apps,
+                              )),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          Text(
+                            "Apps",
+                            style: TextStyle(
+                                fontFamily: 'Comfortaa-Regular',
+                                height: 1,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15.sp),
+                          ),
+                        ]),
+                      )),
+                      Expanded(
+                          child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7.w, horizontal: 5.w),
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.green.shade200.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  offset: const Offset(3, 2),
+                                  blurRadius: 20)
+                            ],
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.green.shade800,
+                                Colors.green.shade200
+                              ],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                            ),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(children: [
+                          Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.abc,
+                              )),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          Text(
+                            "Passwords",
+                            style: TextStyle(
+                                fontFamily: 'Comfortaa-Regular',
+                                height: 1,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15.sp),
+                          ),
+                        ]),
+                      )),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 2.w),
+                  padding: EdgeInsets.symmetric(vertical: 7.w, horizontal: 5.w),
+                  child: Row(children: [
+                    Text(
+                      "Recently Added",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          height: 1,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17.sp),
+                    ),
+                    const Expanded(child: SizedBox()),
+                    Text(
+                      "show All",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          height: 1,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15.sp),
+                    ),
+                  ]),
+                ),
+                const HomePageTile(
+                  text: "Google",
+                  userName: "Dextrix Developer",
+                  imageUrl:
+                      'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
+                ),
+                const HomePageTile(
+                  text: "Facebook",
+                  userName: "anjanajha291202.rar@gmail.com",
+                  imageUrl:
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png',
+                ),
+                const HomePageTile(
+                  text: "Instagram",
+                  userName: "__rounak.k.jha_8683__",
+                  imageUrl:
+                      'https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_instagram-256.png',
+                ),
+                const HomePageTile(
+                  text: "LinkedIn",
+                  userName: "rounak-jha-2200125896",
+                  imageUrl:
+                      'https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png',
                 ),
               ],
             ),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      HomePageTile(
-                        text: "Passwords Added",
-                        number: '23',
-                      ),
-                      HomePageTile(
-                        text: "Passwords Added",
-                        number: '48',
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      HomePageTile(
-                        text: "Passwords Added",
-                        number: '25',
-                      ),
-                      HomePageTile(
-                        text: "Passwords Added",
-                        number: '74',
-                      )
-                    ],
-                  )
-                ]),
-          )
-        ],
-      )),
+          )),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y, this.color);
-  final String x;
-  final double y;
-  final Color color;
 }

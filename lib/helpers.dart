@@ -8,6 +8,10 @@ Color hexToColor(String code) {
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
 
+final bgImageUrl = ValueNotifier("");
+// String bgImage = "assets/abstractBg-min.jpg";
+
+const bgImage = AssetImage("assets/abstractBg-min.jpg");
 void showSuccess(context, message) {
   Fluttertoast.showToast(
       msg: message,

@@ -7,6 +7,8 @@ import 'package:passwordmanager/Screens/master_password.dart';
 import 'package:passwordmanager/widgets/tile_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../helpers.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -17,9 +19,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    // print(user!.displayName);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 253, 247),
+      backgroundColor: Colors.transparent,
       body: SafeArea(
           child: Column(
         children: [

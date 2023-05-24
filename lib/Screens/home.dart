@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:passwordmanager/Screens/SearchPassword.dart';
+import 'package:passwordmanager/helpers.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../Services/LocalAuth.dart';
@@ -45,31 +46,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(selectedIndex),
-      bottomNavigationBar: Container(
+      body: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              color: Colors.black.withOpacity(.1),
-            )
-          ],
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5), BlendMode.darken),
+                image: bgImage,
+                fit: BoxFit.cover)),
+        child: _widgetOptions.elementAt(selectedIndex),
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Colors.black,
         ),
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
             child: GNav(
-              rippleColor: Colors.grey[300]!,
-              hoverColor: Colors.grey[100]!,
+              rippleColor: Colors.transparent,
+              hoverColor: Colors.transparent,
               gap: 8,
-              activeColor: const Color.fromARGB(255, 77, 0, 184),
+              activeColor: Colors.white,
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 200),
-              tabActiveBorder: Border.all(color: Colors.black.withOpacity(0.5)),
-              tabBackgroundColor: const Color.fromARGB(177, 224, 224, 224),
-              color: Colors.black,
+              tabActiveBorder: Border.all(color: Colors.white),
+              tabBackgroundColor: Colors.transparent,
+              color: Colors.white,
               tabs: const [
                 GButton(
                   icon: Icons.home,
