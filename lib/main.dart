@@ -1,21 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:passwordmanager/Screens/dashboard.dart';
 import 'package:passwordmanager/Screens/login.dart';
 import 'package:passwordmanager/Screens/home.dart';
-
-import 'package:passwordmanager/Services/LocalAuth.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import 'Services/User.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(MyApp());
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -47,7 +45,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: !isFirstUser ? const Login() : const HomePage(),
+        home: const Dashboard(),
       );
     });
   }
