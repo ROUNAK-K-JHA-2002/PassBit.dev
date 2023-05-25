@@ -3,9 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:passwordmanager/Utils/Colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../Services/LocalAuth.dart';
+import '../Services/local_auth.dart';
 import '../Services/User.dart';
 import '../helpers.dart';
 import '../widgets/bottom_button.dart';
@@ -24,7 +23,7 @@ class _ManageSettingsState extends State<ManageSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isOnlineModeAllowed ? bgDarkTheme : bgLightTheme,
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(

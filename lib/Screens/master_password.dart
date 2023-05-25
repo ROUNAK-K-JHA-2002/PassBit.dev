@@ -4,7 +4,7 @@ import 'package:passwordmanager/Screens/manage_settings.dart';
 import 'package:passwordmanager/Services/User.dart';
 import 'package:passwordmanager/helpers.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../Services/LocalAuth.dart';
+import '../Services/local_auth.dart';
 import '../widgets/bottom_button.dart';
 
 class MasterPassword extends StatefulWidget {

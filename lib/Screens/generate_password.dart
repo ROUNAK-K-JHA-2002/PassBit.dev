@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:passwordmanager/widgets/bottom_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -322,7 +323,18 @@ class _GeneratePasswordState extends State<GeneratePassword> {
                   );
                 }),
             const Expanded(child: SizedBox()),
-            BottomButton(text: "Copy to Clipboard", onTap: () {})
+            BottomButton(
+                text: "Copy to Clipboard",
+                onTap: () {
+                  if (generatedPassword.value ==
+                      "Move The Slider to generate") {
+                    showError(context, "Generate a Password");
+                  } else {
+                    Clipboard.setData(
+                        ClipboardData(text: generatedPassword.value));
+                    showSuccess(context, "Password Copied");
+                  }
+                })
           ],
         )),
       ),

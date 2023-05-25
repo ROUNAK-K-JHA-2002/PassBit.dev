@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -20,7 +21,7 @@ class LocalAuth {
           options: const AuthenticationOptions(
               useErrorDialogs: true, stickyAuth: true, biometricOnly: true));
     } on PlatformException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }

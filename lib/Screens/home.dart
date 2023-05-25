@@ -6,7 +6,7 @@ import 'package:passwordmanager/Screens/SearchPassword.dart';
 import 'package:passwordmanager/helpers.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../Services/LocalAuth.dart';
+import '../Services/local_auth.dart';
 import '../Services/User.dart';
 import 'password_screen.dart';
 import 'profile.dart';
