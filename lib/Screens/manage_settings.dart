@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:passwordmanager/Screens/home.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../Services/local_auth.dart';
-import '../Services/User.dart';
+import '../Services/user.dart';
 import '../helpers.dart';
 import '../widgets/bottom_button.dart';
 
@@ -18,8 +21,56 @@ class ManageSettings extends StatefulWidget {
 }
 
 class _ManageSettingsState extends State<ManageSettings> {
-  bool isBiometricallowed = false;
-  bool isOnlineModeAllowed = false;
+  final isBiometricallowed = ValueNotifier(false);
+  final isOnlineModeAllowed = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    readSettings();
+  }
+
+  void readSettings() async {
+    isBiometricallowed.value = await readBiometricSetting();
+    isOnlineModeAllowed.value = await readOnlineSetting();
+  }
+
+  void handleSave() async {
+    final isAuth = await LocalAuth().authenticate();
+    debugPrint(isAuth.toString());
+    if (isAuth) {
+      bool taskComplete =
+          await saveBiometricSetting(isBiometricallowed.value.toString()) &&
+              await saveOnlineSetting(isOnlineModeAllowed.value.toString());
+      if (taskComplete) {
+        Fluttertoast.showToast(
+            msg: "Settings Saved Successfully",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.sp);
+
+        if (widget.isloginRoute) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomePage()));
+        } else {
+          Navigator.of(context).pop();
+        }
+      } else {
+        Fluttertoast.showToast(
+            msg: "Error! Please try again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.redAccent,
+            textColor: Colors.white,
+            fontSize: 16.sp);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,20 +121,20 @@ class _ManageSettingsState extends State<ManageSettings> {
                 SizedBox(
                   width: 23.w,
                 ),
-                CupertinoSwitch(
-                    thumbColor: Colors.green,
-                    trackColor: Colors.white,
-                    activeColor: Colors.blueAccent,
-                    value: isOnlineModeAllowed,
-                    onChanged: (bool value) {
-                      setState(() {
-                        if (isOnlineModeAllowed) {
-                          isOnlineModeAllowed = false;
-                        } else {
-                          isOnlineModeAllowed = true;
-                        }
-                      });
-                    })
+                ValueListenableBuilder(
+                  valueListenable: isOnlineModeAllowed,
+                  builder: (context, value, child) {
+                    return CupertinoSwitch(
+                        thumbColor: Colors.green,
+                        trackColor: Colors.white,
+                        activeColor: Colors.blueAccent,
+                        value: isOnlineModeAllowed.value,
+                        onChanged: (bool value) {
+                          isOnlineModeAllowed.value =
+                              !isOnlineModeAllowed.value;
+                        });
+                  },
+                )
               ],
             ),
             const SizedBox(
@@ -117,20 +168,19 @@ class _ManageSettingsState extends State<ManageSettings> {
                 SizedBox(
                   width: 9.w,
                 ),
-                CupertinoSwitch(
-                    thumbColor: Colors.green,
-                    trackColor: Colors.white,
-                    activeColor: Colors.blueAccent,
-                    value: isBiometricallowed,
-                    onChanged: (bool value) {
-                      setState(() {
-                        if (isBiometricallowed) {
-                          isBiometricallowed = false;
-                        } else {
-                          isBiometricallowed = true;
-                        }
-                      });
-                    })
+                ValueListenableBuilder(
+                  valueListenable: isBiometricallowed,
+                  builder: (context, value, child) {
+                    return CupertinoSwitch(
+                        thumbColor: Colors.green,
+                        trackColor: Colors.white,
+                        activeColor: Colors.blueAccent,
+                        value: isBiometricallowed.value,
+                        onChanged: (bool value) {
+                          isBiometricallowed.value = !isBiometricallowed.value;
+                        });
+                  },
+                )
               ],
             ),
             SizedBox(
@@ -148,34 +198,7 @@ class _ManageSettingsState extends State<ManageSettings> {
             ),
             const Expanded(child: SizedBox()),
             BottomButton(
-              onTap: () async {
-                final isAuth = await LocalAuth().authenticate();
-                debugPrint(isAuth.toString());
-                if (isAuth) {
-                  bool taskComplete = await saveBiometricSetting(
-                      isOnlineModeAllowed.toString());
-                  if (taskComplete) {
-                    Fluttertoast.showToast(
-                        msg: "Settings Saved Successfully",
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.TOP,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.green,
-                        textColor: Colors.white,
-                        fontSize: 16.sp);
-                    Navigator.of(context).pop();
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: "Error! Please try again",
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.TOP,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.redAccent,
-                        textColor: Colors.white,
-                        fontSize: 16.sp);
-                  }
-                }
-              },
+              onTap: handleSave,
               text: 'Save Setting',
             )
           ],

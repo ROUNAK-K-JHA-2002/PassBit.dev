@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:passwordmanager/Screens/manage_settings.dart';
-import 'package:passwordmanager/Services/User.dart';
+import 'package:passwordmanager/Services/user.dart';
 import 'package:passwordmanager/helpers.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../Services/local_auth.dart';
@@ -22,7 +22,6 @@ class _MasterPasswordState extends State<MasterPassword> {
     getMasterpassword();
   }
 
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController masterPasswordController =
       TextEditingController();
   final TextEditingController reTypemasterPasswordController =
@@ -80,10 +79,74 @@ class _MasterPasswordState extends State<MasterPassword> {
 
   void getMasterpassword() async {
     dynamic result = await getSavedMasterPassword();
-    print(result + "sgsgsgs");
     if (result != null) {
       setState(() {
         masterPassword = result;
+      });
+    }
+  }
+
+  void handleSave() async {
+    if (masterPasswordController.text != reTypemasterPasswordController.text) {
+      Fluttertoast.showToast(
+          msg: "Error! Passwords do not Match",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.sp);
+    } else if (_strength == 1 / 4) {
+      Fluttertoast.showToast(
+          msg: "Error! Passwords is not Strong enough",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.sp);
+    } else if (masterPasswordController.text.isEmpty ||
+        reTypemasterPasswordController.text.isEmpty) {
+      Fluttertoast.showToast(
+          msg: "Error! Enter All Data",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.sp);
+    } else {
+      final isMPSaved = await saveMasterPassword(masterPasswordController.text);
+
+      setState(() {
+        isMasterPasswordSaved = isMPSaved;
+        if (isMasterPasswordSaved) {
+          Fluttertoast.showToast(
+              msg: "Details Saved Successfully",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.TOP,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.sp);
+        } else {
+          Fluttertoast.showToast(
+              msg: "Error! try again",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.TOP,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.sp);
+        }
+        if (widget.isrouteFromLogin) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const ManageSettings(
+                    isloginRoute: true,
+                  )));
+        } else {
+          Navigator.of(context).pop();
+        }
       });
     }
   }
@@ -365,76 +428,7 @@ class _MasterPasswordState extends State<MasterPassword> {
                   const Expanded(
                     child: SizedBox(),
                   ),
-                  BottomButton(
-                      text: "Save Data",
-                      onTap: () async {
-                        if (masterPasswordController.text !=
-                            reTypemasterPasswordController.text) {
-                          Fluttertoast.showToast(
-                              msg: "Error! Passwords do not Match",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.TOP,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.sp);
-                        } else if (_strength == 1 / 4) {
-                          Fluttertoast.showToast(
-                              msg: "Error! Passwords is not Strong enough",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.TOP,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.sp);
-                        } else if (masterPasswordController.text.isEmpty ||
-                            reTypemasterPasswordController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Error! Enter All Data",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.TOP,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.sp);
-                        } else {
-                          final isMPSaved = await saveMasterPassword(
-                              masterPasswordController.text);
-                          final isUserNamedSaved =
-                              await saveUserName(nameController.text);
-                          // print("ssss" + isUserNamedSaved.toString());
-                          setState(() {
-                            isMasterPasswordSaved = isMPSaved;
-                            if (isMasterPasswordSaved && isUserNamedSaved) {
-                              Fluttertoast.showToast(
-                                  msg: "Details Saved Successfully",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16.sp);
-                            } else {
-                              Fluttertoast.showToast(
-                                  msg: "Error! try again",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.sp);
-                            }
-                            if (widget.isrouteFromLogin) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const ManageSettings(
-                                        isloginRoute: true,
-                                      )));
-                            } else {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        }
-                      })
+                  BottomButton(text: "Save Data", onTap: handleSave)
                 ],
               )),
             ),

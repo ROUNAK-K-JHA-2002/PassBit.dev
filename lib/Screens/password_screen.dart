@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passwordmanager/Services/savePassword.dart';
+import 'package:passwordmanager/helpers.dart';
 import 'package:passwordmanager/widgets/bottom_button.dart';
 import 'package:passwordmanager/widgets/textField.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -190,7 +191,15 @@ class _AddPasswordState extends State<AddPassword> {
               BottomButton(
                   text: "Save Data",
                   onTap: () {
-                    getPassword(accountController.text);
+                    if (userNameController.text.isEmpty ||
+                        accountController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
+                      showError(context, "Error ! Enter All Values");
+                    } else {
+                      savePassword(userNameController.text,
+                          accountController.text, passwordController.text);
+                      showSuccess(context, "Details Saved Successfully");
+                    }
                   })
             ],
           ),
