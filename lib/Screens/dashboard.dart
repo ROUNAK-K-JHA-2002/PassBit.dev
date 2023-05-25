@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:passwordmanager/helpers.dart';
 import 'package:passwordmanager/widgets/textField.dart';
 
@@ -88,19 +91,9 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final json = {
-                            "isFirstTimeUser": false,
-                            "name": "user.displayName",
-                            "email": "user.email",
-                          };
-                          try {
-                            final userCollection =
-                                FirebaseFirestore.instance.collection("users");
-                            await userCollection.doc().set(json);
-                            showSuccess(context, "Data Set");
-                          } catch (e) {
-                            showError(context, "message");
-                          }
+                          // const storage = FlutterSecureStorage();
+                          // Map<String, Object> ss = await storage.readAll();
+                          // print(ss.length);
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(

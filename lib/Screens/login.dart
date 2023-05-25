@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:passwordmanager/Screens/master_password.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../Services/firebase_services.dart';
+import '../helpers.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -14,14 +17,36 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  void handleLogin() async {
+    dynamic user = await FirebaseServices().SignInWithGoogle();
+    if (user != null) {
+      final json = {
+        "name": FirebaseAuth.instance.currentUser!.displayName,
+        "email": FirebaseAuth.instance.currentUser!.email,
+      };
+      try {
+        final userCollection = FirebaseFirestore.instance.collection("users");
+        await userCollection
+            .doc("${FirebaseAuth.instance.currentUser!.displayName}")
+            .set(json);
+        showSuccess(context, "Login Sucessful");
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MasterPassword(
+                  isrouteFromLogin: true,
+                )));
+      } catch (e) {
+        showError(context, "Error Try Again");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/abstractBg.jpg"), fit: BoxFit.cover)),
+            image: DecorationImage(image: bgImage, fit: BoxFit.cover)),
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           const Expanded(child: SizedBox()),
@@ -74,14 +99,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () async {
-                      dynamic user =
-                          await FirebaseServices().SignInWithGoogle();
-                      if (user != null) {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                      }
-                    },
+                    onTap: handleLogin,
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 1.5.h, horizontal: 2.w),
