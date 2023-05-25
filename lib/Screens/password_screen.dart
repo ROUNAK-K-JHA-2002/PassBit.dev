@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordmanager/Services/savePassword.dart';
 import 'package:passwordmanager/helpers.dart';
@@ -19,6 +20,10 @@ class _AddPasswordState extends State<AddPassword> {
   final dropdownValue = ValueNotifier(accountType[0]);
   void selectAccountType(String? value) {
     dropdownValue.value = value!;
+  }
+
+  void providername(String? value) {
+    accountController.text = value!;
   }
 
   @override
@@ -126,8 +131,41 @@ class _AddPasswordState extends State<AddPassword> {
                   const SizedBox(
                     width: 5,
                   ),
-                  TextFieldContainer(
-                      controller: accountController, hintText: "Provider Name"),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    width: 80.w,
+                    child: DropdownSearch<String>(
+                      autoValidateMode: AutovalidateMode.always,
+                      popupProps: PopupProps.modalBottomSheet(
+                          modalBottomSheetProps: const ModalBottomSheetProps(
+                              backgroundColor: Colors.white),
+                          showSearchBox: true,
+                          loadingBuilder: (context, value) {
+                            return const CircularProgressIndicator();
+                          }),
+                      items: socialProviders,
+                      dropdownDecoratorProps: DropDownDecoratorProps(
+                        baseStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            letterSpacing: 1,
+                            fontSize: 15.5.sp),
+                        dropdownSearchDecoration: InputDecoration(
+                            hintText: "Account Provider",
+                            hintStyle: TextStyle(
+                              fontSize: 16.sp,
+                              fontFamily: 'Montserrat',
+                            ),
+                            fillColor: Colors.grey.shade200.withOpacity(0.5),
+                            enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            focusedBorder: const OutlineInputBorder()),
+                      ),
+                      onChanged: providername,
+                    ),
+                  ),
                 ]),
               ),
               SizedBox(
@@ -214,38 +252,44 @@ class _AddPasswordState extends State<AddPassword> {
                               color: Colors.white,
                             ),
                           ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
                           Container(
-                            width: 75.w,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 1.2.h, vertical: 0.5.h),
-                            child: DropdownButtonFormField(
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.black,
-                                  fontFamily: 'Montserrat'),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 5.w),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey.shade200,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            width: 80.w,
+                            child: DropdownSearch<String>(
+                              autoValidateMode: AutovalidateMode.always,
+                              popupProps: PopupProps.modalBottomSheet(
+                                  fit: FlexFit.loose,
+                                  modalBottomSheetProps:
+                                      const ModalBottomSheetProps(
+                                          backgroundColor: Colors.white),
+                                  loadingBuilder: (context, value) {
+                                    return const CircularProgressIndicator();
+                                  }),
+                              items: accountType,
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                baseStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    letterSpacing: 1,
+                                    fontSize: 15.5.sp),
+                                dropdownSearchDecoration: InputDecoration(
+                                    hintText: "Account Type",
+                                    hintStyle: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontFamily: 'Montserrat',
+                                    ),
+                                    fillColor:
+                                        Colors.grey.shade200.withOpacity(0.5),
+                                    enabledBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    focusedBorder: const OutlineInputBorder()),
                               ),
-                              value: dropdownValue.value,
                               onChanged: selectAccountType,
-                              items: accountType
-                                  .map((gender) => DropdownMenuItem(
-                                      value: gender,
-                                      child: Center(child: Text(gender))))
-                                  .toList(),
                             ),
                           ),
                         ],
@@ -253,7 +297,7 @@ class _AddPasswordState extends State<AddPassword> {
                     }),
               ),
               SizedBox(
-                height: 20.h,
+                height: 15.h,
               ),
               BottomButton(
                   text: "Save Data",

@@ -7,11 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:passwordmanager/helpers.dart';
+import 'package:passwordmanager/widgets/loader.dart';
 import 'package:passwordmanager/widgets/textField.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../widgets/homepage_tile.dart';
+import '../widgets/test.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -91,9 +93,10 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          // const storage = FlutterSecureStorage();
-                          // Map<String, Object> ss = await storage.readAll();
-                          // print(ss['fef'].runtimeType);
+                          // const Loader(text: "Loading", showLoading: true);
+                          // await Future.delayed(const Duration(seconds: 2));
+                          // Navigator.of(context).pop();
+                          getDir();
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(

@@ -45,7 +45,7 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
             borderSide: BorderSide(color: Colors.grey.shade200),
           ),
           filled: true,
-          hintText: "  ${widget.hintText}",
+          hintText: "${widget.hintText}",
           hintStyle: TextStyle(
             fontSize: 16.sp,
             fontFamily: 'Montserrat',

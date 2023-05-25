@@ -39,6 +39,7 @@ dependencies:
   google_sign_in: ^6.1.0
   cached_network_image: ^3.2.3
   cloud_firestore: ^4.7.1
+  dropdown_search: ^5.0.6
   flutter:
     sdk: flutter
 
