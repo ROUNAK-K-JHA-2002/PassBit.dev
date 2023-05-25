@@ -140,10 +140,12 @@ class _MasterPasswordState extends State<MasterPassword> {
               fontSize: 16.sp);
         }
         if (widget.isrouteFromLogin) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ManageSettings(
-                    isloginRoute: true,
-                  )));
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => const ManageSettings(
+                        isloginRoute: true,
+                      )),
+              (Route route) => false);
         } else {
           Navigator.of(context).pop();
         }

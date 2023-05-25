@@ -160,9 +160,10 @@ class _ProfileState extends State<Profile> {
                             onPressed: () async {
                               await FirebaseServices().signOut();
                               await const FlutterSecureStorage().deleteAll();
-                              Navigator.of(context).pushReplacement(
+                              Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
-                                      builder: (context) => const Login()));
+                                      builder: (context) => const Login()),
+                                  (Route route) => false);
                             },
                           ),
                         ],

@@ -53,8 +53,9 @@ class _ManageSettingsState extends State<ManageSettings> {
             fontSize: 16.sp);
 
         if (widget.isloginRoute) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()));
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const HomePage()),
+              (Route route) => false);
         } else {
           Navigator.of(context).pop();
         }

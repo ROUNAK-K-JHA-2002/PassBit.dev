@@ -30,10 +30,12 @@ class _LoginState extends State<Login> {
             .doc("${FirebaseAuth.instance.currentUser!.displayName}")
             .set(json);
         showSuccess(context, "Login Sucessful");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const MasterPassword(
-                  isrouteFromLogin: true,
-                )));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => const MasterPassword(
+                      isrouteFromLogin: true,
+                    )),
+            (Route route) => false);
       } catch (e) {
         showError(context, "Error Try Again");
       }
