@@ -8,11 +8,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 const storage = FlutterSecureStorage();
 
 Future<void> savePassword(
-    String userName, String provider, String password) async {
+    String userName, String provider, String password, String accType) async {
   Map<String, dynamic> data = {
     "username": userName,
     "provider": provider,
-    "password": password
+    "password": password,
+    "accType": accType
   };
   debugPrint(data.toString());
   await storage.write(key: provider, value: data.toString());

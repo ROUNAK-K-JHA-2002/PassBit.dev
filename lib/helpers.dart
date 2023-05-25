@@ -69,3 +69,10 @@ String generatePassoword(int len, bool isUppC, bool isLowC, bool isNum,
   }
   return password;
 }
+
+List<String> accountType = [
+  'Account Type',
+  'Sensitive Account',
+  'Social Apps',
+  'Other Apps'
+];

@@ -16,6 +16,11 @@ class _AddPasswordState extends State<AddPassword> {
   final TextEditingController accountController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final dropdownValue = ValueNotifier(accountType[0]);
+  void selectAccountType(String? value) {
+    dropdownValue.value = value!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,18 +191,84 @@ class _AddPasswordState extends State<AddPassword> {
                 ]),
               ),
               SizedBox(
-                height: 25.h,
+                height: 1.h,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 1.w),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 2.w),
+                child: ValueListenableBuilder(
+                    valueListenable: dropdownValue,
+                    builder: (context, value, _) {
+                      return Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 1.h, horizontal: 2.5.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.blueAccent,
+                            ),
+                            child: Icon(
+                              Icons.arrow_drop_down_circle,
+                              size: 20.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Container(
+                            width: 75.w,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 1.2.h, vertical: 0.5.h),
+                            child: DropdownButtonFormField(
+                              style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Colors.black,
+                                  fontFamily: 'Montserrat'),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 5.w),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey.shade200,
+                              ),
+                              value: dropdownValue.value,
+                              onChanged: selectAccountType,
+                              items: accountType
+                                  .map((gender) => DropdownMenuItem(
+                                      value: gender,
+                                      child: Center(child: Text(gender))))
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: 20.h,
               ),
               BottomButton(
                   text: "Save Data",
                   onTap: () {
                     if (userNameController.text.isEmpty ||
                         accountController.text.isEmpty ||
-                        passwordController.text.isEmpty) {
+                        passwordController.text.isEmpty ||
+                        dropdownValue.value == "Account Type") {
                       showError(context, "Error ! Enter All Values");
                     } else {
-                      savePassword(userNameController.text,
-                          accountController.text, passwordController.text);
+                      savePassword(
+                          userNameController.text,
+                          accountController.text,
+                          passwordController.text,
+                          dropdownValue.value);
                       showSuccess(context, "Details Saved Successfully");
                     }
                   })
