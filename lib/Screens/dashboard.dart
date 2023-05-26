@@ -25,10 +25,12 @@ List storedPassword = [];
 
 class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
-
+  int sensitiveAppCount = 0;
+  int socialAppCount = 0;
   @override
   void initState() {
     super.initState();
+
     getAllPassword().then((value) => setState(
           () {
             storedPassword = value;

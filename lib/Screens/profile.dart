@@ -163,8 +163,7 @@ class _ProfileState extends State<Profile> {
                               await FirebaseServices().signOut();
                               await const FlutterSecureStorage().deleteAll();
                               bottomNavbarIndex.value = 0;
-                              sensitiveAppCount = 0;
-                              socialAppCount = 0;
+
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
                                       builder: (context) => const Login()),

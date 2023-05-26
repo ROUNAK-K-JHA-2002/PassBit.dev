@@ -73,8 +73,6 @@ String generatePassoword(int len, bool isUppC, bool isLowC, bool isNum,
 ValueNotifier<List<Map<String, dynamic>>?> storedpasswords =
     ValueNotifier(null);
 final bottomNavbarIndex = ValueNotifier(0);
-int sensitiveAppCount = 0;
-int socialAppCount = 0;
 
 List<String> socialProviders = [
   'Safari',
