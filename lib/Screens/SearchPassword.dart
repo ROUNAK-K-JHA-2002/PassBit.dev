@@ -111,18 +111,8 @@ class _SearchPasswordsState extends State<SearchPasswords> {
             ),
             SizedBox(
               height: 66.h,
-              child: ListView.builder(
-                itemCount: storedPassword.length,
-                itemBuilder: (context, index) {
-                  final accountProvider = storedPassword[index]
-                          ['accountProvider']
-                      .toString()
-                      .replaceAll(" ", "")
-                      .toLowerCase();
-                  final imageName = accountProvider[0].toUpperCase() +
-                      accountProvider.substring(1);
-                  if (storedPassword.isEmpty) {
-                    return Center(
+              child: storedPassword.isEmpty
+                  ? Center(
                       child: Text(
                         "No Password Added!",
                         style: TextStyle(
@@ -132,17 +122,26 @@ class _SearchPasswordsState extends State<SearchPasswords> {
                             fontWeight: FontWeight.w400,
                             fontSize: 20.sp),
                       ),
-                    );
-                  } else {
-                    return HomePageTile(
-                      password: "${storedPassword[index]['password']}",
-                      text: "${storedPassword[index]['accountProvider']}",
-                      userName: "${storedPassword[index]['username']}",
-                      imageUrl: 'assets/providerIcons/$imageName.png',
-                    );
-                  }
-                },
-              ),
+                    )
+                  : ListView.builder(
+                      itemCount: storedPassword.length,
+                      itemBuilder: (context, index) {
+                        final accountProvider = storedPassword[index]
+                                ['accountProvider']
+                            .toString()
+                            .replaceAll(" ", "")
+                            .toLowerCase();
+                        final imageName = accountProvider[0].toUpperCase() +
+                            accountProvider.substring(1);
+
+                        return HomePageTile(
+                          password: "${storedPassword[index]['password']}",
+                          text: "${storedPassword[index]['accountProvider']}",
+                          userName: "${storedPassword[index]['username']}",
+                          imageUrl: 'assets/providerIcons/$imageName.png',
+                        );
+                      },
+                    ),
             ),
           ],
         ),

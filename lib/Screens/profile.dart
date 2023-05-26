@@ -11,6 +11,8 @@ import 'package:passwordmanager/Services/firebase_services.dart';
 import 'package:passwordmanager/widgets/tile_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../helpers.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -160,6 +162,9 @@ class _ProfileState extends State<Profile> {
                             onPressed: () async {
                               await FirebaseServices().signOut();
                               await const FlutterSecureStorage().deleteAll();
+                              bottomNavbarIndex.value = 0;
+                              sensitiveAppCount = 0;
+                              socialAppCount = 0;
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
                                       builder: (context) => const Login()),

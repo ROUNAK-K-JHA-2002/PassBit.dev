@@ -22,8 +22,6 @@ class Dashboard extends StatefulWidget {
 }
 
 List storedPassword = [];
-int sensitiveAppCount = 0;
-int socialAppCount = 0;
 
 class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
@@ -307,19 +305,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    child: ListView.builder(
-                      itemCount:
-                          storedPassword.length < 4 ? storedPassword.length : 4,
-                      itemBuilder: (context, index) {
-                        final accountProvider = storedPassword[index]
-                                ['accountProvider']
-                            .toString()
-                            .replaceAll(" ", "")
-                            .toLowerCase();
-                        final imageName = accountProvider[0].toUpperCase() +
-                            accountProvider.substring(1);
-                        if (storedPassword.isEmpty) {
-                          return Center(
+                    child: storedPassword.isEmpty
+                        ? Center(
                             child: Text(
                               "No Password Added!",
                               style: TextStyle(
@@ -329,17 +316,30 @@ class _DashboardState extends State<Dashboard> {
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20.sp),
                             ),
-                          );
-                        } else {
-                          return HomePageTile(
-                            password: "${storedPassword[index]['password']}",
-                            text: "${storedPassword[index]['accountProvider']}",
-                            userName: "${storedPassword[index]['username']}",
-                            imageUrl: 'assets/providerIcons/$imageName.png',
-                          );
-                        }
-                      },
-                    ),
+                          )
+                        : ListView.builder(
+                            itemCount: storedPassword.length,
+                            itemBuilder: (context, index) {
+                              final accountProvider = storedPassword[index]
+                                      ['accountProvider']
+                                  .toString()
+                                  .replaceAll(" ", "")
+                                  .toLowerCase();
+                              final imageName =
+                                  accountProvider[0].toUpperCase() +
+                                      accountProvider.substring(1);
+
+                              return HomePageTile(
+                                password:
+                                    "${storedPassword[index]['password']}",
+                                text:
+                                    "${storedPassword[index]['accountProvider']}",
+                                userName:
+                                    "${storedPassword[index]['username']}",
+                                imageUrl: 'assets/providerIcons/$imageName.png',
+                              );
+                            },
+                          ),
                   ),
                 ),
               ],
