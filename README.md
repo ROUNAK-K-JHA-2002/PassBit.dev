@@ -1,16 +1,107 @@
-# passwordmanager
 
-A new Flutter project.
+# Passbit - Secure Password Manager
 
-## Getting Started
+Introducing our state-of-the-art Password Manager App, the ultimate solution to safeguard your digital life. With our app, you can conveniently store, manage, and generate secure passwords, all at your fingertips.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# 💻 Tech Stack:
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)  ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)  ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)  ![ANDROID](https://img.shields.io/badge/android-%2320232a.svg?style=for-the-badge&logo=android&logoColor=%a4c639) 
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Interactive and Modern UI along with smooth UX.
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/password-manager-2317a.appspot.com/o/PASSBIT.jpg?alt=media&token=f925be31-4397-44bb-bcd8-580b7340bfdf)
+
+# Management at your hands with unique and strong password generator.
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/password-manager-2317a.appspot.com/o/PASSBIT%20(1).jpg?alt=media&token=6c3a1716-c048-4ec4-b13b-d71e2e5071c9)
+
+
+## Features
+
+- Save Passwords Securely Offline
+- Generate Strong and Unique passwords
+- Manage all Your Passwords 
+- Backup your Passwords (Coming Soon)
+- Sync Passwords Across All devices (Coming Soon)
+
+
+
+## FAQ
+
+#### Is the App Fully Functional?
+
+Its about 70% Functional. You can store and manage all your passwords. I'm working on adding more features
+
+#### Is the App Secure ?
+
+Yes,The password you entered are fully processed offline. I'm using Flutter secure storage , which stores data locally and in excrypted form. 
+
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+
+## Acknowledgements
+
+ - [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage)
+ - [Social Icons](https://github.com/gauravghongde/social-icons.git)
+ - [Awesome README](https://readme.so/)
+
+
+## Installation
+
+Clone this project
+
+```bash
+  git clone https://github.com/ROUNAK-K-JHA-2002/password-manager-app/
+```
+Proceed to parent folder
+
+```bash
+  cd password-manager-app
+```
+
+Follow next.
+
+
+## Deployment
+
+To run this project/ build a debug apk, run
+
+```bash
+  flutter run -v
+```
+To get all dependencies in this project run
+
+```bash
+  flutter pub get
+```
+
+To build apk this project run
+
+```bash
+  flutter build apk -v
+```
+
+
+## License
+
+[See Here](https://github.com/ROUNAK-K-JHA-2002/password-manager-app/blob/main/LICENCE)
+
+
+## Authors
+
+- [@ROUNAK-K-JHA-2002](https://www.github.com/ROUNAK-K-JHA-2002)
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at developer.dextrix@gmail.com
+
