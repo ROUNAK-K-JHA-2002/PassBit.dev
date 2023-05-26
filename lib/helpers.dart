@@ -70,6 +70,10 @@ String generatePassoword(int len, bool isUppC, bool isLowC, bool isNum,
   return password;
 }
 
+ValueNotifier<List<Map<String, dynamic>>?> storedpasswords =
+    ValueNotifier(null);
+final bottomNavbarIndex = ValueNotifier(0);
+
 List<String> socialProviders = [
   'Safari',
   'Notion',
