@@ -112,8 +112,7 @@ class _SearchPasswordsState extends State<SearchPasswords> {
             SizedBox(
               height: 66.h,
               child: ListView.builder(
-                itemCount:
-                    storedPassword.length < 4 ? storedPassword.length : 4,
+                itemCount: storedPassword.length,
                 itemBuilder: (context, index) {
                   final accountProvider = storedPassword[index]
                           ['accountProvider']
@@ -122,11 +121,26 @@ class _SearchPasswordsState extends State<SearchPasswords> {
                       .toLowerCase();
                   final imageName = accountProvider[0].toUpperCase() +
                       accountProvider.substring(1);
-                  return HomePageTile(
-                    text: "${storedPassword[index]['accountProvider']}",
-                    userName: "${storedPassword[index]['username']}",
-                    imageUrl: 'assets/providerIcons/$imageName.png',
-                  );
+                  if (storedPassword.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Password Added!",
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            height: 1,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20.sp),
+                      ),
+                    );
+                  } else {
+                    return HomePageTile(
+                      password: "${storedPassword[index]['password']}",
+                      text: "${storedPassword[index]['accountProvider']}",
+                      userName: "${storedPassword[index]['username']}",
+                      imageUrl: 'assets/providerIcons/$imageName.png',
+                    );
+                  }
                 },
               ),
             ),

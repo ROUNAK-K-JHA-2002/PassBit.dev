@@ -22,6 +22,8 @@ class Dashboard extends StatefulWidget {
 }
 
 List storedPassword = [];
+int sensitiveAppCount = 0;
+int socialAppCount = 0;
 
 class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
@@ -32,6 +34,13 @@ class _DashboardState extends State<Dashboard> {
     getAllPassword().then((value) => setState(
           () {
             storedPassword = value;
+            for (var element in value) {
+              if (element['accountType'] == "Sensitive Account") {
+                sensitiveAppCount += 1;
+              } else if (element['accountType'] == "Social Apps") {
+                socialAppCount += 1;
+              }
+            }
           },
         ));
   }
@@ -159,7 +168,7 @@ class _DashboardState extends State<Dashboard> {
                             height: 1.5.h,
                           ),
                           Text(
-                            "4 \nPasswords \nAdded",
+                            "${storedPassword.length} \nPasswords \nAdded",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: 'Comfortaa-Regular',
@@ -206,7 +215,7 @@ class _DashboardState extends State<Dashboard> {
                             height: 1.5.h,
                           ),
                           Text(
-                            "2 \nSensitive \nApps",
+                            "$sensitiveAppCount \nSensitive \nApps",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: 'Comfortaa-Regular',
@@ -252,7 +261,7 @@ class _DashboardState extends State<Dashboard> {
                             height: 1.5.h,
                           ),
                           Text(
-                            "1 \nSocial \nApps",
+                            "$socialAppCount \nSocial \nApps",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: 'Comfortaa-Regular',
@@ -280,14 +289,19 @@ class _DashboardState extends State<Dashboard> {
                           fontSize: 17.sp),
                     ),
                     const Expanded(child: SizedBox()),
-                    Text(
-                      "show All",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          height: 1,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15.sp),
+                    GestureDetector(
+                      onTap: () {
+                        bottomNavbarIndex.value = 2;
+                      },
+                      child: Text(
+                        "show All",
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            height: 1,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15.sp),
+                      ),
                     ),
                   ]),
                 ),
@@ -304,11 +318,26 @@ class _DashboardState extends State<Dashboard> {
                             .toLowerCase();
                         final imageName = accountProvider[0].toUpperCase() +
                             accountProvider.substring(1);
-                        return HomePageTile(
-                          text: "${storedPassword[index]['accountProvider']}",
-                          userName: "${storedPassword[index]['username']}",
-                          imageUrl: 'assets/providerIcons/$imageName.png',
-                        );
+                        if (storedPassword.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "No Password Added!",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  height: 1,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20.sp),
+                            ),
+                          );
+                        } else {
+                          return HomePageTile(
+                            password: "${storedPassword[index]['password']}",
+                            text: "${storedPassword[index]['accountProvider']}",
+                            userName: "${storedPassword[index]['username']}",
+                            imageUrl: 'assets/providerIcons/$imageName.png',
+                          );
+                        }
                       },
                     ),
                   ),
