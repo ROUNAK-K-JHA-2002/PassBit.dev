@@ -5,22 +5,23 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../models/save_password.dart';
+
 const storage = FlutterSecureStorage();
 
-Future<void> savePassword(
-    String userName, String provider, String password, String accType) async {
-  Map<String, dynamic> data = {
-    "username": userName,
-    "provider": provider,
-    "password": password,
-    "accType": accType
-  };
-  debugPrint(data.toString());
-  await storage.write(key: provider, value: data.toString());
-  debugPrint("Saved");
+Future<void> savePassword(String provider, PasswordModel passwordModel) async {
+  await storage.write(key: provider, value: json.encode(passwordModel));
+  debugPrint(json.encode(passwordModel));
 }
 
-Future<void> getPassword(String provider) async {
-  String? result = await storage.read(key: provider);
-  // print(json.encoder(result));
+Future<List> getAllPassword() async {
+  List<Map<String, dynamic>> list = [];
+  Map<String, dynamic> ss = await const FlutterSecureStorage().readAll();
+  ss.forEach((key, value) {
+    dynamic temp = value;
+    if (temp.toString()[0] == "{") {
+      list.add(json.decode(value));
+    }
+  });
+  return list;
 }
