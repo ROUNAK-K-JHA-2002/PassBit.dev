@@ -60,12 +60,12 @@ Please adhere to this project's `code of conduct`.
 Clone this project
 
 ```bash
-  git clone [https://github.com/ROUNAK-K-JHA-2002/password-manager-app/](https://github.com/ROUNAK-K-JHA-2002/PassBit.dev.git)
+  git clone https://github.com/ROUNAK-K-JHA-2002/PassBit.dev.git
 ```
 Proceed to parent folder
 
 ```bash
-  cd password-manager-app
+  cd PassBit.dev
 ```
 
 Follow next.
@@ -73,15 +73,16 @@ Follow next.
 
 ## Deployment
 
+To sync all dependencies in this project run
+
+```bash
+  flutter pub get
+```
+
 To run this project/ build a debug apk, run
 
 ```bash
   flutter run -v
-```
-To get all dependencies in this project run
-
-```bash
-  flutter pub get
 ```
 
 To build apk this project run
