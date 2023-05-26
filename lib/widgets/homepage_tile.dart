@@ -38,14 +38,14 @@ class _HomePageTileState extends State<HomePageTile> {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(widget.imageUrl),
+              backgroundImage: AssetImage(widget.imageUrl),
             ),
             SizedBox(
               width: 4.w,
             ),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                widget.text,
+                widget.userName,
                 style: TextStyle(
                     fontFamily: 'Poppins-Regular',
                     fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _HomePageTileState extends State<HomePageTile> {
                     color: Colors.white),
               ),
               Text(
-                widget.userName,
+                widget.text,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14.sp,
