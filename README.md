@@ -60,7 +60,7 @@ Please adhere to this project's `code of conduct`.
 Clone this project
 
 ```bash
-  git clone https://github.com/ROUNAK-K-JHA-2002/password-manager-app/
+  git clone [https://github.com/ROUNAK-K-JHA-2002/password-manager-app/](https://github.com/ROUNAK-K-JHA-2002/PassBit.dev.git)
 ```
 Proceed to parent folder
 
