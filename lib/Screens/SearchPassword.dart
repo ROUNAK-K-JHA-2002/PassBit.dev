@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../Services/savePassword.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/homepage_tile.dart';
 import '../widgets/textField.dart';
@@ -14,8 +15,21 @@ class SearchPasswords extends StatefulWidget {
   State<SearchPasswords> createState() => _SearchPasswordsState();
 }
 
+List storedPassword = [];
+
 class _SearchPasswordsState extends State<SearchPasswords> {
   final searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    getAllPassword().then((value) => setState(
+          () {
+            storedPassword = value;
+          },
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +70,8 @@ class _SearchPasswordsState extends State<SearchPasswords> {
               ),
               child: Row(children: [
                 TextFieldContainer(
-                    controller: searchController, hintText: "Search ..."),
+                    controller: searchController,
+                    hintText: "Search by Account Provider"),
                 const SizedBox(
                   width: 5,
                 ),
@@ -94,29 +109,26 @@ class _SearchPasswordsState extends State<SearchPasswords> {
                 const Expanded(child: SizedBox()),
               ]),
             ),
-            const HomePageTile(
-              text: "Google",
-              userName: "Dextrix Developer",
-              imageUrl:
-                  'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
-            ),
-            const HomePageTile(
-              text: "Facebook",
-              userName: "anjanajha291202.rar@gmail.com",
-              imageUrl:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png',
-            ),
-            const HomePageTile(
-              text: "Instagram",
-              userName: "__rounak.k.jha_8683__",
-              imageUrl:
-                  'https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_instagram-256.png',
-            ),
-            const HomePageTile(
-              text: "LinkedIn",
-              userName: "rounak-jha-2200125896",
-              imageUrl:
-                  'https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png',
+            SizedBox(
+              height: 66.h,
+              child: ListView.builder(
+                itemCount:
+                    storedPassword.length < 4 ? storedPassword.length : 4,
+                itemBuilder: (context, index) {
+                  final accountProvider = storedPassword[index]
+                          ['accountProvider']
+                      .toString()
+                      .replaceAll(" ", "")
+                      .toLowerCase();
+                  final imageName = accountProvider[0].toUpperCase() +
+                      accountProvider.substring(1);
+                  return HomePageTile(
+                    text: "${storedPassword[index]['accountProvider']}",
+                    userName: "${storedPassword[index]['username']}",
+                    imageUrl: 'assets/providerIcons/$imageName.png',
+                  );
+                },
+              ),
             ),
           ],
         ),

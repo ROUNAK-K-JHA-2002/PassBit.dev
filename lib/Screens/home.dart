@@ -36,7 +36,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  int selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
     AddPassword(),
@@ -46,15 +45,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.darken),
-                image: bgImage,
-                fit: BoxFit.cover)),
-        child: _widgetOptions.elementAt(selectedIndex),
-      ),
+      body: ValueListenableBuilder(
+          valueListenable: bottomNavbarIndex,
+          builder: (context, value, _) {
+            return Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.darken),
+                      image: bgImage,
+                      fit: BoxFit.cover)),
+              child: _widgetOptions.elementAt(bottomNavbarIndex.value),
+            );
+          }),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.black,
@@ -62,42 +65,47 @@ class _HomePageState extends State<HomePage> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-            child: GNav(
-              rippleColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              gap: 8,
-              activeColor: Colors.white,
-              iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: const Duration(milliseconds: 200),
-              tabActiveBorder: Border.all(color: Colors.white),
-              tabBackgroundColor: Colors.transparent,
-              color: Colors.white,
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.add_circle,
-                  text: 'Add',
-                ),
-                GButton(
-                  icon: Icons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: Icons.person_3_rounded,
-                  text: 'Profile',
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
+            child: ValueListenableBuilder(
+                valueListenable: bottomNavbarIndex,
+                builder: (context, value, _) {
+                  return GNav(
+                    rippleColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    gap: 8,
+                    activeColor: Colors.white,
+                    iconSize: 24,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 12),
+                    duration: const Duration(milliseconds: 200),
+                    tabActiveBorder: Border.all(color: Colors.white),
+                    tabBackgroundColor: Colors.transparent,
+                    color: Colors.white,
+                    tabs: const [
+                      GButton(
+                        icon: Icons.home,
+                        text: 'Home',
+                      ),
+                      GButton(
+                        icon: Icons.add_circle,
+                        text: 'Add',
+                      ),
+                      GButton(
+                        icon: Icons.search,
+                        text: 'Search',
+                      ),
+                      GButton(
+                        icon: Icons.person_3_rounded,
+                        text: 'Profile',
+                      ),
+                    ],
+                    selectedIndex: bottomNavbarIndex.value,
+                    onTabChange: (index) {
+                      setState(() {
+                        bottomNavbarIndex.value = index;
+                      });
+                    },
+                  );
+                }),
           ),
         ),
       ),

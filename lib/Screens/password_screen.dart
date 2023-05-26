@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordmanager/Services/savePassword.dart';
 import 'package:passwordmanager/helpers.dart';
+import 'package:passwordmanager/models/save_password.dart';
 import 'package:passwordmanager/widgets/bottom_button.dart';
 import 'package:passwordmanager/widgets/textField.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -17,9 +18,9 @@ class _AddPasswordState extends State<AddPassword> {
   final TextEditingController accountController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final dropdownValue = ValueNotifier(accountType[0]);
+  final accountTypeController = ValueNotifier(accountType[0]);
   void selectAccountType(String? value) {
-    dropdownValue.value = value!;
+    accountTypeController.value = value!;
   }
 
   void providername(String? value) {
@@ -235,7 +236,7 @@ class _AddPasswordState extends State<AddPassword> {
                 margin: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 1.w),
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 2.w),
                 child: ValueListenableBuilder(
-                    valueListenable: dropdownValue,
+                    valueListenable: accountTypeController,
                     builder: (context, value, _) {
                       return Row(
                         children: [
@@ -305,15 +306,18 @@ class _AddPasswordState extends State<AddPassword> {
                     if (userNameController.text.isEmpty ||
                         accountController.text.isEmpty ||
                         passwordController.text.isEmpty ||
-                        dropdownValue.value == "Account Type") {
+                        accountTypeController.value == "Account Type") {
                       showError(context, "Error ! Enter All Values");
                     } else {
                       savePassword(
-                          userNameController.text,
                           accountController.text,
-                          passwordController.text,
-                          dropdownValue.value);
+                          PasswordModel(
+                              username: userNameController.text,
+                              accountProvider: accountController.text,
+                              password: passwordController.text,
+                              accountType: accountTypeController.value));
                       showSuccess(context, "Details Saved Successfully");
+                      bottomNavbarIndex.value = 0;
                     }
                   })
             ],
