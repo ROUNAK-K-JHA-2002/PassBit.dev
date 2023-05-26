@@ -1,5 +1,5 @@
 
-# Passbit - Secure Password Manager
+# PassBit - Secure Password Manager
 
 Introducing our state-of-the-art Password Manager App, the ultimate solution to safeguard your digital life. With our app, you can conveniently store, manage, and generate secure passwords, all at your fingertips.
 
@@ -36,7 +36,7 @@ Its about 70% Functional. You can store and manage all your passwords. I'm worki
 
 #### Is the App Secure ?
 
-Yes,The password you entered are fully processed offline. I'm using Flutter secure storage , which stores data locally and in excrypted form. 
+Yes,The password you entered are fully processed offline. I'm using Flutter secure storage , which stores data locally and in encrypted form. 
 
 
 ## Contributing
