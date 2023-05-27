@@ -27,15 +27,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    checkFirstUser();
-  }
-
-  void checkFirstUser() async {
-    final bool result = await isFirstTimeUser();
-
-    setState(() {
-      isFirstUser = result;
-    });
   }
 
   @override
