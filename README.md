@@ -7,6 +7,12 @@ Introducing our state-of-the-art Password Manager App, the ultimate solution to 
 
 # 💻 Tech Stack:
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)  ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)  ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)  ![ANDROID](https://img.shields.io/badge/android-%2320232a.svg?style=for-the-badge&logo=android&logoColor=%a4c639) 
+
+## Other Repositories of this Project  :
+- [PassBit Website](https://github.com/Satyam0204/PassBit.dev_web.git)
+- [PassBit Backend](https://github.com/gitdhruba/PassBit.dev-backend.git)
+- [PassBit Browser Extension](https://github.com/ROUNAK-K-JHA-2002/PassBit.exe.git)
+
 ## Screenshots
 
 # Interactive and Modern UI along with smooth UX.
@@ -16,7 +22,6 @@ Introducing our state-of-the-art Password Manager App, the ultimate solution to 
 # Management at your hands with unique and strong password generator.
 
 ![App Screenshot](https://firebasestorage.googleapis.com/v0/b/password-manager-2317a.appspot.com/o/PASSBIT%20(1).jpg?alt=media&token=6c3a1716-c048-4ec4-b13b-d71e2e5071c9)
-
 
 ## Features
 
@@ -32,7 +37,7 @@ Introducing our state-of-the-art Password Manager App, the ultimate solution to 
 
 #### Is the App Fully Functional?
 
-Its about 70% Functional. You can store and manage all your passwords. I'm working on adding more features
+It's under development. You can store and manage all your passwords. I'm working on adding more features
 
 #### Is the App Secure ?
 
