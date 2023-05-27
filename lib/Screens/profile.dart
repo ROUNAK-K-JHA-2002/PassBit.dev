@@ -12,6 +12,7 @@ import 'package:passwordmanager/widgets/tile_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../helpers.dart';
+import 'developer_contact.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -133,6 +134,10 @@ class _ProfileState extends State<Profile> {
                 child: const TileWidget(
                     icon: Icons.security, text: "Privacy Terms")),
             GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DevContact()));
+                },
                 child: const TileWidget(
                     icon: Icons.contact_mail, text: "Developer Contact")),
             GestureDetector(

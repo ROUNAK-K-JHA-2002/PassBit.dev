@@ -7,7 +7,6 @@ import 'package:passwordmanager/Screens/master_password.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../Services/firebase_services.dart';
 import '../helpers.dart';
-import 'home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
