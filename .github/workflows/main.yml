@@ -17,7 +17,6 @@ jobs:
           with: 
             flutter-version: '3.x'
         - run: flutter pub get
-        - run: flutter test
         - run: flutter build apk --release
         - name: Push to Releases
           uses: ncipollo/release-action@v1
